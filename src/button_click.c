@@ -4,19 +4,6 @@ static Window *window;
 static TextLayer *text_top;
 static TextLayer *text_layer;
 
-// static int value;
-// static char s_buffer[8];
-
-/*
-static void main_window_unload(Window *window) 
-{
-  // Destroy TextLayer
-  text_layer_destroy(text_top);
-  text_layer_destroy(text_layer);
-  text_layer_destroy(text_info);
-}
-*/
-
 static void update_time() 
 {
   // Get a tm structure
@@ -42,30 +29,6 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 }
 
 
-/*
-static void select_click_handler(ClickRecognizerRef recognizer, void *context) 
-{
-  text_layer_set_text(text_info, "menu");
-}
-
-static void up_click_handler(ClickRecognizerRef recognizer, void *context) 
-{
-  text_layer_set_text(text_info, "up");
-}
-
-static void down_click_handler(ClickRecognizerRef recognizer, void *context) 
-{
-  text_layer_set_text(text_info, "dwn");
-}
-
-
-static void click_config_provider(void *context) 
-{
-  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
-  window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
-  window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
-}
-*/
 
 static void window_load(Window *window) 
 {
@@ -87,25 +50,6 @@ static void window_load(Window *window)
   layer_add_child(window_layer, text_layer_get_layer(text_top));
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
   
-  /*
-  static void message_handler(DictionaryIterator *iter, void *context) {
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Received message.");
-  Tuple *msg_type_tuple = dict_find(iter, PebbleMessageKeyType);
-  Tuple *msg_value_tuple = dict_find(iter, PebbleMessageKeyValue);
-  write_line_on_screen(msg_value_tuple->value->cstring);
-}
-...
-// Set sniff interval.
-app_comm_set_sniff_interval(SNIFF_INTERVAL_NORMAL); 
-
-// Register message handlers
-app_message_register_inbox_received(message_handler);
-app_message_register_inbox_dropped(message_dropped);
-
-// Init buffers
-app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-APP_LOG(APP_LOG_LEVEL_DEBUG, "App Message set up.");
-*/
 }
 
 
@@ -118,7 +62,6 @@ static void window_unload(Window *window)
 static void init(void) 
 {
   window = window_create();
-//  window_set_click_config_provider(window, click_config_provider);
   window_set_window_handlers(window, (WindowHandlers) {
 	.load = window_load,
     .unload = window_unload,
@@ -126,7 +69,7 @@ static void init(void)
   const bool animated = true;
   
   // Register with TickTimerService
-  tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
+  tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   
   window_stack_push(window, animated);
 }
