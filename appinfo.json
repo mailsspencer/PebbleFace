@@ -1,0 +1,23 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "simons.jodis@gmail.com",
+    "enableMultiJS": false,
+    "longName": "Button",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Button",
+    "targetPlatforms": [
+        "aplite"
+    ],
+    "uuid": "45f87597-8254-40a3-a7e7-578ad45afbbd",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
