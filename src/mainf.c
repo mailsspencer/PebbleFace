@@ -4,6 +4,7 @@ static Window *window;
 static TextLayer *text_top;
 static TextLayer *text_layer;
 static Layer *s_canvas_layer;
+static unsigned int StatusBar = 0;
 
 static void update_time() 
 {
@@ -23,6 +24,8 @@ static void update_time()
   text_layer_set_text(text_top, s_buffer3);
   text_layer_set_text(text_layer, s_buffer2);
   
+  StatusBar = 45;
+  
   layer_mark_dirty(s_canvas_layer);
 }
 
@@ -35,10 +38,18 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 static void canvas_update_proc(Layer *layer, GContext *ctx) 
 {
   // Custom drawing happens here!
-  GRect rect_bounds = GRect(20, 100, 120, 140);
+  GRect rect_bounds = GRect(20, 110, 105, 40);
+  GRect rect_bounds2;
+  GRect rect_bounds3 = GRect(25, 115, 95, 30);
+  int corner_radius = 5;
+  
+  rect_bounds2 = GRect(25, 115, StatusBar, 30);
   
   // Draw a rectangle
-  graphics_draw_rect(ctx, rect_bounds);
+//  graphics_draw_rect(ctx, rect_bounds);
+  graphics_draw_round_rect(ctx, rect_bounds, corner_radius);
+  graphics_draw_round_rect(ctx, rect_bounds3, corner_radius);
+  graphics_fill_rect(ctx, rect_bounds2, corner_radius, GCornersAll);
 }
 
 
