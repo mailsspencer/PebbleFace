@@ -3,6 +3,7 @@
 static Window *window;
 static TextLayer *text_top;
 static TextLayer *text_layer;
+static Layer *s_canvas_layer;
 
 static void update_time() 
 {
@@ -21,6 +22,8 @@ static void update_time()
   // Display this time on the TextLayer
   text_layer_set_text(text_top, s_buffer3);
   text_layer_set_text(text_layer, s_buffer2);
+  
+  layer_mark_dirty(s_canvas_layer);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) 
@@ -28,6 +31,15 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
   update_time();
 }
 
+
+static void canvas_update_proc(Layer *layer, GContext *ctx) 
+{
+  // Custom drawing happens here!
+  GRect rect_bounds = GRect(20, 100, 120, 140);
+  
+  // Draw a rectangle
+  graphics_draw_rect(ctx, rect_bounds);
+}
 
 
 static void window_load(Window *window) 
@@ -43,14 +55,17 @@ static void window_load(Window *window)
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
   text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_MEDIUM_NUMBERS));
 
+//  text_layer_set_text(text_top, "Simon");
   
-  text_layer_set_text(text_top, "Simon");
-
+  // Create canvas layer
+  s_canvas_layer = layer_create(bounds);
+  layer_set_update_proc(s_canvas_layer, canvas_update_proc);
+  
   update_time();
   
   layer_add_child(window_layer, text_layer_get_layer(text_top));
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
-  
+  layer_add_child(window_get_root_layer(window), s_canvas_layer);
 }
 
 
