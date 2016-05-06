@@ -44,7 +44,7 @@ static void window_load(Window *window)
   text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_MEDIUM_NUMBERS));
 
   
-  text_layer_set_text(text_top, "date");
+  text_layer_set_text(text_top, "Simon");
   update_time();
   
   layer_add_child(window_layer, text_layer_get_layer(text_top));
