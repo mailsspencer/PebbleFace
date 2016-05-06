@@ -45,6 +45,7 @@ static void window_load(Window *window)
 
   
   text_layer_set_text(text_top, "Simon");
+
   update_time();
   
   layer_add_child(window_layer, text_layer_get_layer(text_top));
