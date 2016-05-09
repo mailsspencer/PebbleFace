@@ -1,5 +1,7 @@
 #include <pebble.h>
 
+#define STATUS_BAR_PXL_WIDTH 95.0f
+
 static Window *window;
 static TextLayer *text_top;
 static TextLayer *text_layer;
@@ -9,6 +11,7 @@ static unsigned int StatusBar = 0;
 static void update_time() 
 {
   // Get a tm structure
+  int i;
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
 
@@ -19,12 +22,14 @@ static void update_time()
                                           "%H:%M" : "%I:%M", tick_time);
   
   strftime(s_buffer3, sizeof(s_buffer3), "%a %D", tick_time);
+  i = (int)((((float)tick_time->tm_hour * 60.0f) + (float)tick_time->tm_min) / ((23.0f*60.0f)+59.0f) * STATUS_BAR_PXL_WIDTH);
 
   // Display this time on the TextLayer
+//  snprintf(s_buffer3, 10, "%d", i);
   text_layer_set_text(text_top, s_buffer3);
   text_layer_set_text(text_layer, s_buffer2);
   
-  StatusBar = 45;
+  StatusBar = i;
   
   layer_mark_dirty(s_canvas_layer);
 }
