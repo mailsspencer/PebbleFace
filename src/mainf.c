@@ -18,8 +18,7 @@ static void update_time()
   // Write the current hours and minutes into a buffer
   static char s_buffer2[8];
   static char s_buffer3[20];
-  strftime(s_buffer2, sizeof(s_buffer2), clock_is_24h_style() ?
-                                          "%H:%M" : "%I:%M", tick_time);
+  strftime(s_buffer2, sizeof(s_buffer2), "%H:%M", tick_time);
   
   strftime(s_buffer3, sizeof(s_buffer3), "%a %d/%m/%y", tick_time);
   i = (int)((((float)tick_time->tm_hour * 60.0f) + (float)tick_time->tm_min) / ((23.0f*60.0f)+59.0f) * STATUS_BAR_PXL_WIDTH);
