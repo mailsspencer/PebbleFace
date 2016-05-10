@@ -5,13 +5,13 @@
     ],
     "companyName": "simons.jodis@gmail.com",
     "enableMultiJS": false,
-    "longName": "Button",
+    "longName": "Status Day Bar",
     "projectType": "native",
     "resources": {
         "media": []
     },
     "sdkVersion": "3",
-    "shortName": "Button",
+    "shortName": "StatusDayBar",
     "targetPlatforms": [
         "aplite"
     ],
